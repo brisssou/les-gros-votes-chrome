@@ -1,0 +1,73 @@
+<html>
+<head>
+<script type="text/javascript">
+  var getStyleRex = /(style=['"].*?['"])/g;
+  var getClassRex = /(class=['"].*?['"])/g;
+  var getEmptyDivRex = /(<div><.div>)/g;
+  var getSpanRex = /(<.?span.*?>)/g;
+  function init() {
+    var radioID = localStorage['radio_id'];
+    if (radioID == null) radioID = 1;
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET","http://www.lagrosseradio.com/playerLGR/ajax_player.php?id_radio="+radioID, false);
+    xhr.send();
+    var content = xhr.responseText.split('||separe_partie||')[0];
+    content = content.replace(getStyleRex, "").replace(getClassRex, "").replace(getEmptyDivRex, "").replace(getSpanRex, "");
+    document.getElementById("content").innerHTML = content;
+  }
+  
+  function setRadio(radioID) {
+    localStorage['radio_id'] = radioID;
+    init();
+  }
+  
+  function avis_gb(bandID, titleID, vote, radioID) {
+		var result = new XMLHttpRequest();
+		result.open("POST","http://www.lagrosseradio.com/playerLGR/ajax_player.php?id_radio=2&gb_artiste="+bandID+"&gb_titre="+titleID+"&val_gb="+vote+"&gb_radio="+radioID, false);
+	  result.send();
+    init();
+	}
+</script>
+<style>
+  body {
+    width: 450px;
+    margin: auto:
+  }
+  body > div:first-child {
+    width: 450px;
+  }
+  ul {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    display: block;
+  }
+  ul > li{
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    width: 30%;
+    cursor: hand;
+    font-weight: bolder;
+    margin-bottom: 7px;
+  }
+  
+  #content > a:first-child {
+    float: right;
+    padding-bottom: 5px;
+  }
+</style>
+</head>
+<body onload="init()">
+  <div>
+    <ul id="radios" title="Choisissez votre radio">
+      <li><a onclick="setRadio(1); return false;">Rock</a></li>
+      <li><a onclick="setRadio(2); return false;">Metal</a></li>
+      <li><a onclick="setRadio(3); return false;">Reggae</a></li>
+    </ul>
+  </div>
+  <div id="content">
+  </div>
+</body>
+</html>
