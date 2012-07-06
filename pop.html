@@ -15,6 +15,25 @@
     var content = xhr.responseText.split('||separe_partie||')[0];
     content = content.replace(getStyleRex, "").replace(getClassRex, "").replace(getEmptyDivRex, "").replace(getSpanRex, "");
     document.getElementById("content").innerHTML = content;
+
+    //redesign after LGR design move
+    document.getElementsByTagName('img')[0].style.float = 'left';
+    divs = document.getElementsByTagName('div');
+    console.log(divs.length);
+    for (i = 2; i < divs.length - 1 ; i++) {
+console.log(i);
+        console.log(divs[i].style.textAlign);
+        divs[i].style.marginLeft = '140px';
+        divs[i].style.marginBottom = '14px';
+        console.log(divs[i].style.textAlign);
+    }
+    /*
+    divs[divs.length - 1].style.float = "left";
+    divs[divs.length - 1].style.textAlign = "center";
+    divs[divs.length - 1].style.width = "450px";
+    divs[divs.length - 1].style.marginBottom = "10px";
+    */
+    divs[divs.length - 1].style.display = 'none';
   }
   
   function setRadio(radioID) {
