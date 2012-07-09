@@ -4,7 +4,7 @@
 </script>
 <style>
   body {
-    width: 550px;
+    width: 450px;
     margin: auto;
     font-family: Arial, FreeSans;
   }
@@ -62,28 +62,45 @@
     text-decoration: none;
   }
 
-  #votes{
-    padding-left: 16px;
-    /*position: relative;*/
-    /*display: inline-block;*/
-    vertical-align: top;
+  #infos > a:hover {
+    text-decoration: underline;
   }
+
+  #votes{
+    padding-left: 19px;
+    font-size: 12px;
+  }
+  
   #votes > a {
     color: #E40008;
     font-weight: bold;
     font-size: 11px;
     cursor: pointer;
   }
-  #votes > a:first-child {
+
+  #votes > a:nth-child(2) {
     color: #0A7D12;
   }
 
-  #votes{
-
+  #voted {
+    color: #BD7300;
+    padding-left: 19px;
+    font-size: 12px;
   }
 
   #shares{
+    color: #5C5C5C;
+    font-weight: bold;
+    font-size: 12px;
+  }
 
+  #shares > a:hover {
+    text-decoration: underline;
+    color: #547687;
+  }
+  #shares > a {
+    text-decoration: none;
+    color: #547687;
   }
 
 </style>

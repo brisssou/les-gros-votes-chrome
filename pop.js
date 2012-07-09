@@ -53,7 +53,11 @@ function init() {
 
   if (divs.length > 2) {
     divs[2].id = 'infos';
-    divs[3].id = 'votes';
+    if (divs[3].getElementsByTagName('a').length > 0) {
+      divs[3].id = 'votes';
+  }else {
+  divs[3].id = 'voted';
+  }
     divs[4].id = 'shares';
   }
 }
