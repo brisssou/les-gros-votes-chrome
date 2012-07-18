@@ -44,6 +44,15 @@ function init() {
     var start = "javascript:window.open('";
 
     divs[divs.length - 1].getElementsByTagName('a')[0].href = oldHref.substring(start.length, oldHref.length - end.length);
+
+    for (j = 0; j < as.length ; j++) {
+      as[j].addEventListener('click', 
+        function() {
+          chrome.tabs.create({url: this.href});
+          return false;
+      }
+      );
+    }
   }
 
   /*styles...*/
