@@ -2,14 +2,14 @@ var getStyleRex = /( style=['"].*?['"])/g;
 var getClassRex = /( class=['"].*?['"])/g;
 var getEmptyDivRex = /(<div><.div>)/g;
 var getSpanRex = /(<.?span.*?>)/g;
-var avisRex = /javascript:avis_gb\('(\d+)', '(\d+)', '(\d+)', '(\d+)'\);/;
+var avisRex = /javascript:avis_gb\('(\d+)',(?:%20| )'(\d+)',(?:%20| )'(\d+)',(?:%20| )'(\d+)'\);/;
 
 function init() {
   var radioID = localStorage['radio_id'];
   if (radioID == null) radioID = 1;
   setRadioClass(radioID);
 
-  fetch(new Request("http://www.lagrosseradio.com/playerLGR/ajax_player.php?id_radio=" + radioID))
+  fetch(new Request("https://www.lagrosseradio.com/playerLGR/ajax_player.php?id_radio=" + radioID))
   .then(function(response) {
     response.text()
     .then(function (text) {
@@ -31,7 +31,7 @@ function init() {
               as[j].addEventListener('click',
                 function(bandID, titleID, vote, radioID) {
                   return function() {
-                    avis_gb(bandID, titleID, vote, radioID);
+                    sendVote(bandID, titleID, vote, radioID);
                   };
                 }(avisMatch[1], avisMatch[2], avisMatch[3], avisMatch[4]));
             }
@@ -52,7 +52,7 @@ function init() {
             function() {
               chrome.tabs.create({url: this.href});
               return false;
-          }
+            }
           );
         }
       }
@@ -66,9 +66,9 @@ function init() {
         divs[2].id = 'infos';
         if (divs[3].getElementsByTagName('a').length > 0) {
           divs[3].id = 'votes';
-      }else {
-      divs[3].id = 'voted';
-      }
+        } else {
+          divs[3].id = 'voted';
+        }
         divs[4].id = 'shares';
       }
     });
@@ -89,11 +89,11 @@ function setRadioClass(radioID) {
   document.getElementById("radio_"+radioID).className="selectedRadio";
 }
 
-function avis_gb(bandID, titleID, vote, radioID) {
+function sendVote(bandID, titleID, vote, radioID) {
   fetch(
-    new Request("http://www.lagrosseradio.com/playerLGR/ajax_player.php?id_radio="+radioID+"&gb_artiste="+bandID+"&gb_titre="+titleID+"&val_gb="+vote+"&gb_radio="+radioID),
-    {method: "POST"}
-    ).then(init);
+    new Request("https://www.lagrosseradio.com/playerLGR/ajax_player.php?id_radio="+radioID+"&gb_artiste="+bandID+"&gb_titre="+titleID+"&val_gb="+vote+"&gb_radio="+radioID)
+    //,    {method: "POST"}
+  ).then(init);
 }
 
 window.addEventListener("load", function () {
@@ -101,4 +101,5 @@ window.addEventListener("load", function () {
   var lis = document.getElementsByTagName('li');
   for (i = 0; i<lis.length;i++) {
     lis[i].firstChild.addEventListener('click', setRadio, i + 1 );
-}});
+  }
+});
