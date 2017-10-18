@@ -1,7 +1,7 @@
  {
 	"manifest_version": 2,
 	"name": "La Grosse Radio - Votez!",
-	"version": "1.2.0",
+	"version": "1.2.1",
 	"description": "Votez simplement sur La Grosse Radio.",
 	"background": {"page": "bg.html"},
 	"browser_action": {

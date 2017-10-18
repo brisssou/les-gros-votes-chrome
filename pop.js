@@ -15,7 +15,7 @@ function init() {
     .then(function (text) {
       var content = text.split('||separe_partie||')[0];
       content = content.replace(getStyleRex, "").replace(getClassRex, "").replace(getEmptyDivRex, "").replace(getSpanRex, "");
-      document.getElementById("content").innerHTML = content;
+      document.getElementById("content").innerHTML = Sanitizer.escapeHTML(content);
 
       //redesign after LGR design move
       document.getElementById('content').getElementsByTagName('a')[0].style.float = 'left';
