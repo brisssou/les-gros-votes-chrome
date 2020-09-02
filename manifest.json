@@ -7,5 +7,8 @@
 	"browser_action": {
 		"default_icon": "lgr.ico"
 	},
-	"icons": {"16": "16.png", "48": "48.png", "128":"128.png" }
+	"icons": {"16": "16.png", "48": "48.png", "128":"128.png" },
+	"permissions": [
+		"https://www.lagrosseradio.com/playerLGR/ajax_player.php"
+	]
 }
